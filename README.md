@@ -1,6 +1,6 @@
-# LaTeX Paper Template
+# Songjam Lite Paper
 
-This is a LaTeX template for writing academic papers. The template includes a basic structure with common sections and necessary packages.
+This is the Songjam Lite Paper - A Cryptographic Voice Verification System
 
 ## Prerequisites
 
@@ -29,17 +29,3 @@ To compile this LaTeX document, you need:
    pdflatex main
    pdflatex main
    ```
-
-## Customization
-
-1. Edit `main.tex` to modify the content
-2. Add your references to `references.bib`
-3. Modify the document class options and packages in `main.tex` as needed
-
-## Features
-
-- Modern page layout with reasonable margins
-- Support for figures and tables
-- Bibliography management with BibTeX
-- Hyperlinks and cross-references
-- Mathematical equations support 
