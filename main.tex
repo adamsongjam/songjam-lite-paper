@@ -50,7 +50,10 @@
 A fully encrypted, privacy-preserving voice verification system could effectively eliminate voice-based deepfake fraud without requiring users to compromise their security or personal data.
 Zero-knowledge proofs provide part of the solution, but a fundamental challenge remains: it is difficult to verify with absolute certainty that a given voice truly belongs to a specific individual, especially as voice synthesis technologies become increasingly sophisticated.
 This work introduces a solution to the verification problem by leveraging cryptoeconomics.
-The network rewards users for submitting accurate credentials, while imposing penalties on those who attempt to present false ones.
+The network rewards users for submitting accurate credentials, while imposing penalties on those who attempt to provide false information, leveraging the security of a Proof-of-Stake (PoS) consensus mechanism, while aligning user incentives with the integrity of the network.
+Voice biometrics and other sensitive data are cryptographically stored in Trusted Execution Environments (TEEs) providing hardware-backed isolation and encryption.
+Access to this data is granted to users through a Soulbound Token (SBT), a non-transferable, non-replicable digital asset permanently tied to an individual’s digital identity.
+Over time, the user builds-up a personalised voice model, with each new audio sample organized and stored within a wavRAG structure—an Audio-Integrated Retrieval Augmented Generation framework, enabling efficient and context-rich retrieval of voice data.
 \end{abstract}
 
 \section{Introduction}
@@ -64,11 +67,11 @@ The sub-150ms latency required for natural conversation in VoIP calls leaves min
 What is needed is a privacy-preserving verification system leveraging zero-knowledge proofs and selective disclosure mechanisms, where only cryptographically attested credentials (e.g., identity, access rights) are validated—without exposing extraneous user data.
 This approach ensures networks authenticate voice participants a priori through mathematical guarantees (e.g., zk-SNARKs), verifying the existence of valid credentials rather than analyzing raw biometrics or personal details.
 By limiting verification to key attributes (e.g., "member of authorised group" or "registered device") and eliminating unnecessary data collection, such systems align with GDPR/CCPA principles while thwarting deepfake fraud and metadata misuse.
-This paper proposes a novel cryptoeconomic framework for voice verification, in which users are incentivised to provide accurate and verifiable credentials, while malicious actors face penalties—akin to Proof-of-Stake slashing mechanisms—for fraudulent voice attribution attempts.
+This paper proposes a novel cryptoeconomic framework for voice verification, in which users are incentivised to provide accurate and verifiable credentials, while malicious actors face penalties—akin to Proof-of-Stake (PoS) slashing mechanisms—for fraudulent voice attribution attempts.
 
 \section{The Proof-of-Stake Security Guarentee?}
 \label{sec:background}
-Much has been written about the security of the Proof-of-Stake (PoS) consensus mechanism, with proponents arguing that its economic incentives guarantee security, while opponents contend that the consolidation of staked token supply will lead to centralisation.
+Much has been written about the security of the PoS consensus mechanism, with proponents arguing that its economic incentives guarantee security, while opponents contend that the consolidation of staked token supply will lead to centralisation.
 Nevertheless, the economic incentives and penalties underpinning Ethereum’s Proof-of-Stake mechanism have proven effective, driving its adoption and establishing it as the preferred consensus model for securing one of the world’s largest blockchain networks—demonstrated by the very small number of validator slashing events recorded to date (with only around 0.045\% of validators slashed since Ethereum staking began).
 
 \begin{figure}[h]
