@@ -349,14 +349,13 @@ Voice data custody solutions may be necessary to support a broader rollout of su
 \end{figure}
 \vspace{0.1cm}
 
-Custodial solutions are popular in the cryptocurrency space, with analysts suggesting 50\% of the world's cryptocurrency is managed by a custodian on behalf of a user.
-Self-custody solutions are available to users who wish to administer their cryptographic assets independently of any third party.
+Custodial solutions are often used in the cryptocurrency space, while self-custody is available to users who wish to administer their cryptographic assets independently of any third party.
 
 \section{AI Voice Agents}
 \label{sec:discussion}
 
-Network participants are able to provide thier voice data to an AI voice agent, which can be used to provide a voice-based service.
-This could be provided \textquotesingle as-is\textquotesingle{} or in combination with other voices and data sources to create unique voices.
+Network participants are able to provide thier voice to an AI voice agent, which can be used to provide a voice-based service.
+The voice model can be provided \textquotesingle as-is\textquotesingle{} or in combination with other voices and sources to create unique voices.
 For example, a voice agent could be deployed in a reader app, a chatbot, or a voice assistant, and paid for with royalties issued in a native token representing the individual voice.
 Such an AI voice agent marketplace would provide an incentive for users to provide their voice data to the network, and to maintain it over time.
 
@@ -366,6 +365,30 @@ Such an AI voice agent marketplace would provide an incentive for users to provi
     \caption{Voice agents deployed in a reader browser extension, displaying remaining token balance}
     \label{fig:reader}
 \end{figure}
+
+Users stake corresponding tokens to enable use of an agent, which are burnt based on usage:
+
+\begin{equation}
+    S_t = S_{t-1} - \sum_{i=1}^{n} \frac{w_i}{W} \quad \text{where } S_t \geq 0
+\end{equation}
+
+Where $S_t$ is the remaining stake at time $t$, $w_i$ is the number of tokens spoken by the AI model for utterance $i$, and $W$ is the total number of tokens in the model's vocabulary. This ensures that one staked token is burned for each token spoken by the AI voice agent, with partial tokens being accumulated until they sum to a whole token.
+
+Another early use-case sees users spinning-up thier own voice agent once they have recorded a sufficient amount of voice data, and deploying it inside an X (formerly Twitter) Space---interactive live audio conversations which have become popular forums for the cryptocurrency community.
+By participating in these X Spaces with AI voice agents trained on their voice data and personality, they can grow their X following, expanding their reach and earning potential.
+
+An AI voice agent marketplace can be introduced through the Songjam agentic CRM, an exisiting platform designed to support growth and anlytics for X users by automating processes such as direct messaging, tracking listener data and speech-to-text with an emphasis on X Spaces.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{crm.png}
+    \caption{Songjam agentic CRM interface for managing X Spaces}
+    \label{fig:crm}
+\end{figure}
+
+Focusing on an X Spaces native sandbox can encourage users to spin up creative AI voice agents with customisable personalities, using their own voice or a combination of available voices to create unique voice agents with royalties being split between the original voice owner(s) and the agent owner.
+As mentioned in section 3, such a \textquotesingle training wheels\textquotesingle{} phase can support early network growth, helping to ensure the network is robust, while providing a platform for users to experiment within the voice agent ecosystem.
+There may be several iterations of the voice agent marketplace and underlying protocol that must be rolled out and stress tested at scale before a fully decentralised cryptographically secure voice verification network can reach maturity.
 
 \section{Data}
 \label{sec:discussion}
