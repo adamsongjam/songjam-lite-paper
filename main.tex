@@ -278,12 +278,40 @@ A wallet signature derives a fernet symmetric encryption key from a Trusted Exec
 A Content Identifier (CID) is generated when the data is stored and this is deployed into a proto-SBT contract issued to the signing wallet.
 Only this proto-SBT holding wallet can derive the decryption key from the TEE network.
 
-\section{Intellectual Property and Sovereignty}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=4cm,
+        owner/.style={circle, draw, fill=blue!20, minimum size=1.2cm, text width=1.5cm, align=center},
+        sbt/.style={rectangle, draw, fill=green!20, minimum width=3cm, minimum height=1.2cm, text width=2cm, align=center},
+        tee/.style={rectangle, draw, fill=orange!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        ipfs/.style={rectangle, draw, fill=purple!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        arrow/.style={thick,->,>=stealth}
+    ]
+        % Self-custody diagram
+        \node[owner] (owner1) at (-6,0) {Voice\\Owner};
+        \node[sbt] (sbt1) at (0,0) {Proto-SBT\\\small{Encryption}};
+        \node[tee] (tee1) at (6,0) {TEE Network\\\small{Key Derivation}};
+        \node[ipfs] (ipfs1) at (0,-2.5) {IPFS\\\small{Storage}};
+        
+        % Connections for self-custody
+        \draw[arrow] (owner1) -- node[above] {Controls} (sbt1);
+        \draw[arrow] (tee1) -- node[above] {Derives} (sbt1);
+        \draw[arrow] ([xshift=-0.3cm]sbt1.south) -- node[left] {Manages} ([xshift=-0.3cm]ipfs1.north);
+        \draw[arrow] ([xshift=0.3cm]ipfs1.north) -- node[right] {CID} ([xshift=0.3cm]sbt1.south);
+    \end{tikzpicture}
+    \caption{Self-custody solution for voice data management}
+    \label{fig:self-custody}
+\end{figure}
+\vspace{0.1cm}
+
+\section{Intellectual Property, Sovereignty and Custody}
 \label{sec:conclusion}
 The unique physiological properties of a voice cannot be understood as Intellectual Property (IP) in a traditional sense, and are not protected by existing IP laws.
 Though legislation such as the Ensuring Likeness Voice Image Security (ELVIS) Act has been signed into law in Tennessee, US, and bills are proposed in the US and other jurisictions, the ELVIS Act is merely an expansion of \textit{publicity} rights of the voice as "a sound attributable to a particular individual, regardless of whether it contains the actual voice or a simulation" and only applies to unathorised \textit{commercial} use.
 This makes sense, as the voice is a natural biological property of an individual, it is not a product of human invention, however when commercialised a voice being purveyed in a new work can have attributes that allow it to fit into an IP regime, therefore elements of proposed legislation are concerned with making AI voice models licensable.
-Though such acts may protect commercial interests, they do not protect the natural rights of an individual to their voice, and the ability to control how it is used.
+For example, the No Artificial Intelligence Fake Replicas And Unauthorized Duplications (No AI FRAUD) Act proposed in the US House of Representatives would "recognize that every individual has a property right in their own likeness and voice, akin to other forms of IP rights" and the Nuture Originals, Foster Art and Keep Entertainment Safe (NO FAKES) Act introduced in both the US Senate and House of Representatives would grant "each individual or right holder the right to authorize the use of their voice or visual likeness in a digital replica, which the bill states is a property right."
+Though the scope of these proposals targets broad protection for individuals, as well as outlining the commercial terms for licensing, in practice enforcement is likely to be difficult for anyone other than the corporations that rely on IP as a product.
 
 A voice verification network should exist independently of any IP regime, and not be encumbered by politically or commercially vulnerable legislation.
 A voice verification network should be sovereign, enabling the user to own and control their data, and to enable it to be used as they see fit.
@@ -294,40 +322,30 @@ Voice data custody solutions may be necessary to support a broader rollout of su
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=2cm,
-        owner/.style={circle, draw, fill=blue!20, minimum size=1.8cm, text width=2.2cm, align=center},
-        sbt/.style={rectangle, draw, fill=green!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        node distance=4cm,
+        owner/.style={circle, draw, fill=blue!20, minimum size=1.2cm, text width=1.5cm, align=center},
+        sbt/.style={rectangle, draw, fill=green!20, minimum width=3cm, minimum height=1.2cm, text width=2cm, align=center},
         tee/.style={rectangle, draw, fill=orange!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
         ipfs/.style={rectangle, draw, fill=purple!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
         arrow/.style={thick,->,>=stealth}
     ]
-        % Self-custody diagram
-        \node[above=0.5cm] at (-4,0) {\textbf{Self-Custody}};
-        \node[owner] (owner1) at (-4,0) {Voice\\Owner};
-        \node[sbt] (sbt1) at (0,0) {Proto-SBT\\\small{Encryption}};
-        \node[tee] (tee1) at (4,0) {TEE Network\\\small{Key Derivation}};
-        \node[ipfs] (ipfs1) at (0,-3) {IPFS\\\small{Storage}};
-        
-        % Connections for self-custody
-        \draw[arrow] (owner1) -- node[above] {Controls} (sbt1);
-        \draw[arrow] (sbt1) -- node[above] {Derives} (tee1);
-        \draw[arrow] (sbt1) -- node[right] {Manages} (ipfs1);
-        
         % Custodial diagram
-        \node[above=0.5cm] at (12,0) {\textbf{Custodial}};
-        \node[owner] (owner2) at (8,0) {Voice\\Owner};
-        \node[sbt] (sbt2) at (12,0) {Proto-SBT\\\small{Encryption}};
-        \node[tee] (tee2) at (16,0) {TEE Network\\\small{Key Derivation}};
-        \node[ipfs] (ipfs2) at (12,-3) {IPFS\\\small{Storage}};
-        \node[rectangle, draw, fill=red!20, minimum width=4cm, minimum height=2.5cm, text width=3.8cm, align=center] (custodian) at (12,-1.5) {Data Custodian\\\small{Nation State}};
+        \node[above=0.5cm] at (0,0) {\textbf{Custodial}};
+        \node[rectangle, draw, fill=red!10, minimum width=8cm, minimum height=3cm, text width=7.8cm, align=center] (custodian) at (0,0.0) {};
+        \node[text width=7.8cm, align=center] at (0,1.2) {Custodian};
+        \node[owner] (owner2) at (-6,0) {Voice\\Owner};
+        \node[sbt] (sbt2) at (0,0) {Proto-SBT\\\small{Encryption}};
+        \node[tee] (tee2) at (6,0) {TEE Network\\\small{Key Derivation}};
+        \node[ipfs] (ipfs2) at (0,-2.5) {IPFS\\\small{Storage}};
         
         % Connections for custodial
         \draw[arrow] (owner2) -- node[above] {Delegates} (sbt2);
-        \draw[arrow] (sbt2) -- node[above] {Derives} (tee2);
-        \draw[arrow] (sbt2) -- node[right] {Manages} (ipfs2);
+        \draw[arrow] (tee2) -- node[above] {Derives} (sbt2);
+        \draw[arrow] ([xshift=-0.3cm]sbt2.south) -- node[left] {Manages} ([xshift=-0.3cm]ipfs2.north);
+        \draw[arrow] ([xshift=0.3cm]ipfs2.north) -- node[right] {CID} ([xshift=0.3cm]sbt2.south);
     \end{tikzpicture}
-    \caption{Comparison of self-custody and custodial solutions for voice data management}
-    \label{fig:custody-comparison}
+    \caption{Custodial solution for voice data management}
+    \label{fig:custodial}
 \end{figure}
 \vspace{0.1cm}
 
