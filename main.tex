@@ -16,7 +16,9 @@
 \usepackage{cleveref}
 \usepackage{titling}
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows,positioning}
+\usetikzlibrary{shapes,arrows,positioning,decorations.pathreplacing}
+\usepackage{caption}
+\captionsetup{skip=0pt}  % Remove space between figure and caption
 
 % Page layout
 \geometry{
@@ -34,7 +36,7 @@
 }
 
 % Document info
-\title{Songjam\\[0.5em]\large A Cryptographic Voice Verification System}
+\title{Songjam\\[0.5em]\large A Cryptographic Voice Verification Network}
 \author{Adam Place}
 \date{\today}
 
@@ -47,12 +49,12 @@
 \maketitle
 
 \begin{abstract}
-A fully encrypted, privacy-preserving voice verification system could effectively eliminate voice-based deepfake fraud without requiring users to compromise their security or personal data.
+A fully encrypted, privacy-preserving voice verification network could effectively eliminate voice-based deepfake fraud without requiring users to compromise their security or personal data.
 Zero-knowledge proofs provide part of the solution, but a fundamental challenge remains: it is difficult to verify with absolute certainty that a given voice truly belongs to a specific individual, especially as voice synthesis technologies become increasingly sophisticated.
 This work introduces a solution to the verification problem by leveraging cryptoeconomics.
 The network rewards users for submitting accurate credentials, while imposing penalties on those who attempt to provide false information, leveraging the security of a Proof-of-Stake (PoS) consensus mechanism, while aligning user incentives with the integrity of the network.
 Voice biometrics and other sensitive data are cryptographically stored in Trusted Execution Environments (TEEs) providing hardware-backed isolation and encryption.
-Access to this data is granted to users through a Soulbound Token (SBT), a non-transferable, non-replicable digital asset permanently tied to an individual’s digital identity.
+Access to this data is granted to users through a Soulbound Token (SBT), a non-transferable, non-replicable digital asset permanently tied to an individual's digital identity.
 Over time, the user builds-up a personalised voice model, with each new audio sample organized and stored within a wavRAG structure—an Audio-Integrated Retrieval Augmented Generation framework, enabling efficient and context-rich retrieval of voice data.
 \end{abstract}
 
@@ -61,20 +63,20 @@ Over time, the user builds-up a personalised voice model, with each new audio sa
 The rise of deepfakes has led to a growing concern about the falibility of humans to verify the authenticity of voice communication.
 High profile cases such as the 2024 deepfake attack on engineering firm Arup, which led to a twenty-five million dollar loss, highlight the importance of secure and reliable enterprise verification systems.
 
-While a plethora of fradulent online videos featuring deepfakes of celebrities promoting supposed investment opportunities, and the rise of romance or 'pig butchering' scams which collectively siphon billions of dollars from unsuspecting victims every year illustrate the nessecity of consumer or citizen protections.
+While a plethora of fradulent online videos featuring deepfakes of celebrities promoting supposed investment opportunities, and the rise of romance or \textquotesingle pig butchering\textquotesingle{} scams which collectively siphon billions of dollars from unsuspecting victims every year illustrate the nessecity of consumer or citizen protections.
 The sub-150ms latency required for natural conversation in VoIP calls leaves minimal time for analysis on standard hardware, making real-time detection of deepfakes challenging. While the proprietary nature of platforms such as Zoom, Teams and SIP providers, hinders the development of universal detection frameworks.
 
 What is needed is a privacy-preserving verification system leveraging zero-knowledge proofs and selective disclosure mechanisms, where only cryptographically attested credentials (e.g., identity, access rights) are validated—without exposing extraneous user data.
 This approach ensures networks authenticate voice participants a priori through mathematical guarantees (e.g., zk-SNARKs), verifying the existence of valid credentials rather than analyzing raw biometrics or personal details.
-By limiting verification to key attributes (e.g., "member of authorised group" or "registered device") and eliminating unnecessary data collection, such systems align with GDPR/CCPA principles while thwarting deepfake fraud and metadata misuse.
-This paper proposes a novel cryptoeconomic framework for voice verification, in which users are incentivised to provide accurate and verifiable credentials, while malicious actors face penalties—akin to Proof-of-Stake (PoS) slashing mechanisms—for fraudulent voice attribution attempts.
+By limiting verification to key attributes (e.g., "member of authorised group" or "registered device") and eliminating unnecessary data collection, such systems support user control over personal information while thwarting deepfake fraud and metadata misuse.
+This paper proposes a novel cryptoeconomic framework for voice verification, in which users are incentivised to provide accurate and verifiable credentials, while malicious actors face penalties—akin to PoS slashing mechanisms—for fraudulent voice attribution attempts.
 
 \section{The Proof-of-Stake Security Guarentee?}
 \label{sec:background}
 Much has been written about the security of the PoS consensus mechanism, with proponents arguing that its economic incentives guarantee security, while opponents contend that the consolidation of staked token supply will lead to centralisation.
-Nevertheless, the economic incentives and penalties underpinning Ethereum’s Proof-of-Stake mechanism have proven effective, driving its adoption and establishing it as the preferred consensus model for securing one of the world’s largest blockchain networks—demonstrated by the very small number of validator slashing events recorded to date (with only around 0.045\% of validators slashed since Ethereum staking began).
+Nevertheless, the economic incentives and penalties underpinning Ethereum's Proof-of-Stake mechanism have proven effective, driving its adoption and establishing it as the preferred consensus model for securing one of the world's largest blockchain networks—demonstrated by the very small number of validator slashing events recorded to date (with only around 0.045\% of validators slashed since Ethereum staking began).
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[
         node distance=2.8cm,
@@ -89,8 +91,8 @@ Nevertheless, the economic incentives and penalties underpinning Ethereum’s Pr
         \node[block] (blockchain) {Blockchain};
         
         % Validators - using larger distances
-        \node[validator, left=2.8cm of blockchain] (validator1) {Compliant};
-        \node[validator, right=2.8cm of blockchain] (validator2) {Non-Compliant};
+        \node[validator, left=2.8cm of blockchain] (validator1) {Compliant Validator};
+        \node[validator, right=2.8cm of blockchain] (validator2) {Non-Compliant Validator};
         
         % Staking connections
         \draw[dashedarrow] (validator1) -- node[above] {32 ETH} (blockchain);
@@ -120,20 +122,220 @@ Nevertheless, the economic incentives and penalties underpinning Ethereum’s Pr
     \caption{Ethereum's PoS economics rewards honest validators and penalises malicious ones}
     \label{fig:pos-system}
 \end{figure}
+\vspace{0.1cm}
 
-
-
-\section{Soulbound Tokens}
+Ethereum's ability to ensure security through staked ETH is attributable to the distribution and value it accumulated over several years as a Proof-of-Work (PoW) network.
+A new network, even built with the same consensus mechanism, would not be able to guarantee security with the same level of confidence.
+Taking the PoS principle to Voice Verification, to validate and secure the authenticity of voice biometrics from day one requires a different approach.
+A solution is to introduce an AI biosignal verification analysis step, in which the user must provide a voice sample accompanied by the physiological motions necessary for human speech production.
+Projects such as OriginStory propose a microphone that includes a sensor to measure these movements, however a laryngeal mounted Piezoelectric transducer would be a viable alternative that can capture vocal fold vibrations (70-3000 Hz) through neck skin and would be broadly accessible and cost effective for a global network of users.
+The emphasis is on open-source hardware and a ResNet-18 signal processing architecture, which prepares the data with preliminary "authentic/synthetic" labels.
+Such process is a pre-requisite for the user to be able to submit a voice sample to the network, and is a key component of the voice verification system.
+To enhance security and incentivise honest participation, the staking mechanism requires users to regularly re-verify and stake SANG tokens as collateral, in addition to successfully completing the preliminary AI biosignal verification analysis.
+\begin{equation}
+    \mathcal{S}_i = \underbrace{\delta \cdot V_i}_{\text{Verification Confidence}} \times \underbrace{\left(S_i^{\gamma} \cdot e^{-\lambda t}\right)}_{\text{Time-Adjusted Stake}} \quad \text{where } \delta = \begin{cases} 
+    1 & \text{if biosignal verified} \\
+    0 & \text{otherwise}
+    \end{cases}
+    \end{equation}
+    The security contribution ($\mathcal{S}_i$) combines an AI verification confidence score ($V_i$, on a 0--1 scale), user-staked tokens ($S_i$), a stake elasticity parameter ($\gamma > 1$ for superlinear scaling), a time decay constant ($\lambda$), and the time since last verification refresh ($t$), creating a time-adjusted stake mechanism that prioritizes recent biometric confirmations.
+\section{Sybil Resistance}
 \label{sec:methodology}
-Describe your methods and approach here.
+Pairing PoS and physical biosignal analysis alone is not enough to protect the network against sybil attacks, in which a single attacker creates and operates multiple fake identities.
 
-\section{Voice Biometrics}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=4cm,
+        user/.style={circle, draw, fill=blue!20, minimum size=1.5cm},
+        mercenary/.style={circle, draw, fill=orange!20, minimum size=1.5cm},
+        attacker/.style={rectangle, draw, fill=red!40, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        label/.style={text width=4cm, align=center, font=\small},
+        arrow/.style={thick,->,>=stealth}
+    ]
+        % Main groups
+        \node[user] (user1) at (0,4.65) {User 1};
+        \node[user] (user2) at (4,4.65) {User 2};
+        \node[user] (user3) at (8,4.65) {User 3};
+        
+        % Attacker
+        \node[attacker] (attacker) at (4,2.8) {Sybil\\Attacker};
+        
+        % Mercenary nodes
+        \node[mercenary] (merc1) at (0,0.5) {Mercenary 1};
+        \node[mercenary] (merc2) at (4,0.5) {Mercenary 2};
+        \node[mercenary] (merc3) at (8,0.5) {Mercenary 3};
+        
+        % Labels
+        \node[label] (legit) at (4,6) {Legitimate Users};
+        \node[label] (merc_label) at (4,-1.32) {Recruited Mercenaries};
+        
+        % Connections
+        \draw[arrow] (attacker) -- (merc1);
+        \draw[arrow] (attacker) -- (merc2);
+        \draw[arrow] (attacker) -- (merc3);
+        
+        % Grouping brackets
+        \draw[decorate,decoration={brace,amplitude=5pt}] (-1,5.5) -- (9,5.5);
+        \draw[decorate,decoration={brace,amplitude=5pt,mirror}] (-1,-0.8) -- (9,-0.8);
+    \end{tikzpicture}
+    \caption{An attacker can recruit humans who are not participating in a network to act as Sybils}
+    \label{fig:sybil-attack}
+\end{figure}
+\vspace{0.1cm}
+
+Soul Bound Tokens (SBTs) are proposed as a potential decentralised identity system, that would be used to ensure individual credentials are not transferable or replicable, and may therefore prove critical in sybil resistance.
+However before community recovery mecanisms are broadly adopted by wallet issuers, SBTs are not a complete solution.
+In the interim the network may leverage a revocable proto-SBT such as ERC-5484, which maintains the non-transferable and non-replicable properties of an SBT, but allows the token to be burnt under certain conditions.
+Sybil resistance must therefore be managed through a layered combination of social and technical mechanisms, including zero-knowledge identity proofs, integrating existing social media account validation, and the use of a reputation system, which can include on-chain activity, repeated engagement and other social signals.
+
+A voice verification network should also support a pseudonymous economy, whereby users can port their authenticated voice biometrics to a pseudonymous identity they control.
+In fact, in order to bootstrap the network, it may not be necessary for voice biometrics to be coupled with a real identity at all.
+Such a \textquotesingle training wheels\textquotesingle{} phase---liberated from the need for real identities can enable adoption and stress testing while community wallet recovery mechanisms mature.
+
+\section{Privacy}
 \label{sec:results}
-Present your results here.
+Current internet architecture limits privacy, often relying on centralised servers that process and store user data.
+Privacy for a Voice Verification Network can be maintained by encrypting all biometric and audio data prior to storage in a decentralised cloud network such as IPFS.
 
-\section{AI Voice Agents}
+\begin{figure}[H]
+    \centering
+    \vspace{0.05cm}  % Match spacing with Figure 3
+    \begin{tikzpicture}[
+        node distance=2cm,
+        block/.style={rectangle, draw, fill=blue!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        process/.style={rectangle, draw, fill=green!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        output/.style={rectangle, draw, fill=orange!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        arrow/.style={thick,->,>=stealth}
+    ]
+        % Client initialization
+        \node[block] (client) at (0,0) {AsyncTappdClient\\Initialization};
+        
+        % Key derivation
+        \node[process] (derive) at (4,0) {Derive Key\\with Salt};
+        
+        % Key conversion
+        \node[process] (convert) at (8,0) {Convert to\\32 Bytes};
+        
+        % Final output
+        \node[output] (output) at (12,0) {Hex Output};
+        
+        % Connections
+        \draw[arrow] (client) -- (derive);
+        \draw[arrow] (derive) -- (convert);
+        \draw[arrow] (convert) -- (output);
+        
+        % Labels with increased vertical spacing
+        \node[below=0.1cm of client, text width=3.3cm, align=center] {client = AsyncTappdClient()};
+        \node[below=0.1cm of derive, text width=3.3cm, align=center] {derive\_key = client.derive\_key()};
+        \node[below=0.1cm of convert, text width=3.3cm, align=center] {key\_bytes = derive\_key.toBytes(32)};
+        \node[below=0.1cm of output, text width=3.3cm, align=center] {return key\_bytes.hex()};
+    \end{tikzpicture}
+    \captionof{figure}{Key derivation process for encryption key generation}
+    \label{fig:key-derivation}
+\end{figure}
+\vspace{0.1cm}
+
+A wallet signature derives a fernet symmetric encryption key from a Trusted Execution Enviornment (TEE) network such as Phala, making the data undecipherable without key access.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2cm,
+        input/.style={rectangle, draw, fill=blue!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        process/.style={rectangle, draw, fill=green!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        output/.style={rectangle, draw, fill=orange!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        arrow/.style={thick,->,>=stealth}
+    ]
+        % Input key
+        \node[input] (key) at (0,0) {Encryption Key\\(hex)};
+        
+        % Key conversion
+        \node[process] (convert) at (4,0) {Convert to\\Fernet Key};
+        
+        % Encryption
+        \node[process] (encrypt) at (8,0) {Encrypt\\Data};
+        
+        % Final output
+        \node[output] (output) at (12,0) {Encrypted\\Data};
+        
+        % Connections
+        \draw[arrow] (key) -- (convert);
+        \draw[arrow] (convert) -- (encrypt);
+        \draw[arrow] (encrypt) -- (output);
+        
+        % Labels with two lines
+        \node[below=0.1cm of key, text width=3.3cm, align=center] {encryption\_key};
+        \node[below=0.1cm of convert, text width=3.3cm, align=center] {Fernet(base64.b64encode\\bytes.fromhex())};
+        \node[below=0.1cm of encrypt, text width=3.3cm, align=center] {fernet.encrypt\\data};
+        \node[below=0.1cm of output, text width=3.3cm, align=center] {encrypted\_data};
+    \end{tikzpicture}
+    \captionof{figure}{Fernet encryption process for data protection}
+    \label{fig:fernet-encryption}
+\end{figure}
+\vspace{0.1cm}
+
+A Content Identifier (CID) is generated when the data is stored and this is deployed into a proto-SBT contract issued to the signing wallet.
+Only this proto-SBT holding wallet can derive the decryption key from the TEE network.
+
+\section{Intellectual Property and Sovereignty}
+\label{sec:conclusion}
+The unique physiological properties of a voice cannot be understood as Intellectual Property (IP) in a traditional sense, and are not protected by existing IP laws.
+Though legislation such as the Ensuring Likeness Voice Image Security (ELVIS) Act has been signed into law in Tennessee, US, and bills are proposed in the US and other jurisictions, the ELVIS Act is merely an expansion of \textit{publicity} rights of the voice as "a sound attributable to a particular individual, regardless of whether it contains the actual voice or a simulation" and only applies to unathorised \textit{commercial} use.
+This makes sense, as the voice is a natural biological property of an individual, it is not a product of human invention, however when commercialised a voice being purveyed in a new work can have attributes that allow it to fit into an IP regime, therefore elements of proposed legislation are concerned with making AI voice models licensable.
+Though such acts may protect commercial interests, they do not protect the natural rights of an individual to their voice, and the ability to control how it is used.
+
+A voice verification network should exist independently of any IP regime, and not be encumbered by politically or commercially vulnerable legislation.
+A voice verification network should be sovereign, enabling the user to own and control their data, and to enable it to be used as they see fit.
+This work proposes cryptographic, rather than legal controls, to maintain the integrity of the network, and to ensure that the user's data is not used for purposes other than those intended.
+It however may be utilised by nation states to uphold their laws and protect their citizens from deepfake fraud.
+Voice data custody solutions may be necessary to support a broader rollout of such a network, and data custodians may serve as a bridge between the network and voice owner.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2cm,
+        owner/.style={circle, draw, fill=blue!20, minimum size=1.8cm, text width=2.2cm, align=center},
+        sbt/.style={rectangle, draw, fill=green!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        tee/.style={rectangle, draw, fill=orange!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        ipfs/.style={rectangle, draw, fill=purple!20, minimum width=3cm, minimum height=1.2cm, text width=2.8cm, align=center},
+        arrow/.style={thick,->,>=stealth}
+    ]
+        % Self-custody diagram
+        \node[above=0.5cm] at (-4,0) {\textbf{Self-Custody}};
+        \node[owner] (owner1) at (-4,0) {Voice\\Owner};
+        \node[sbt] (sbt1) at (0,0) {Proto-SBT\\\small{Encryption}};
+        \node[tee] (tee1) at (4,0) {TEE Network\\\small{Key Derivation}};
+        \node[ipfs] (ipfs1) at (0,-3) {IPFS\\\small{Storage}};
+        
+        % Connections for self-custody
+        \draw[arrow] (owner1) -- node[above] {Controls} (sbt1);
+        \draw[arrow] (sbt1) -- node[above] {Derives} (tee1);
+        \draw[arrow] (sbt1) -- node[right] {Manages} (ipfs1);
+        
+        % Custodial diagram
+        \node[above=0.5cm] at (12,0) {\textbf{Custodial}};
+        \node[owner] (owner2) at (8,0) {Voice\\Owner};
+        \node[sbt] (sbt2) at (12,0) {Proto-SBT\\\small{Encryption}};
+        \node[tee] (tee2) at (16,0) {TEE Network\\\small{Key Derivation}};
+        \node[ipfs] (ipfs2) at (12,-3) {IPFS\\\small{Storage}};
+        \node[rectangle, draw, fill=red!20, minimum width=4cm, minimum height=2.5cm, text width=3.8cm, align=center] (custodian) at (12,-1.5) {Data Custodian\\\small{Nation State}};
+        
+        % Connections for custodial
+        \draw[arrow] (owner2) -- node[above] {Delegates} (sbt2);
+        \draw[arrow] (sbt2) -- node[above] {Derives} (tee2);
+        \draw[arrow] (sbt2) -- node[right] {Manages} (ipfs2);
+    \end{tikzpicture}
+    \caption{Comparison of self-custody and custodial solutions for voice data management}
+    \label{fig:custody-comparison}
+\end{figure}
+\vspace{0.1cm}
+
+\section{Data}
 \label{sec:discussion}
-Discuss your findings and their implications here.
+Retrieval Augmented Generation (RAG) is a data standard which supports context-rich retrieval for AI models such as Large Language Models (LLMs).
+It has become a key component of the AI ecosystem, giving LLMs the ability to access and utilise external data sources to enhance their responses.
+wavRAG is a framework that integrates audio data into RAG pipelines, enabling LLMs to process and analyse voice audio data to provide context-rich responses.
 
 \section{Conclusion}
 \label{sec:conclusion}
