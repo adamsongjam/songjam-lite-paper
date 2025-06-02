@@ -4,6 +4,7 @@
 % Essential packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+% \usepackage[sort&compress]{natbib} % Commented out for debugging
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -15,10 +16,42 @@
 \usepackage{float}
 \usepackage{cleveref}
 \usepackage{titling}
+\usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning,decorations.pathreplacing}
 \usepackage{caption}
 \captionsetup{skip=0pt}  % Remove space between figure and caption
+
+% Define custom colors for Plutchik's Wheel (Primary, Secondary, Tertiary)
+% % Primary Emotions (8) % COMMENTING OUT STARTS HERE
+% \definecolor{myJoyColor}{RGB}{255,215,0}    % Gold (Joy)
+% \definecolor{myTrustColor}{RGB}{0,139,139}  % DarkCyan (Trust)
+% \definecolor{myFearColor}{RGB}{139,0,139}   % DarkMagenta (Fear)
+% \definecolor{mySurpriseColor}{RGB}{255,140,0} % DarkOrange (Surprise)
+% \definecolor{mySadnessColor}{RGB}{65,105,225} % RoyalBlue (Sadness)
+% \definecolor{myDisgustColor}{RGB}{0,100,0}   % DarkGreen (Disgust)
+% \definecolor{myAngerColor}{RGB}{220,20,60}   % Crimson (Anger)
+% \definecolor{myAnticipationColor}{RGB}{255,140,0} % DarkOrange (Anticipation, same as Surprise)
+
+% Secondary Emotions (Dyads - 8)
+\definecolor{myOptimismColor}{RGB}{255,179,71} % Apricot (Anticipation+Joy)
+\definecolor{myLoveColor}{RGB}{255,105,180} % HotPink (Joy+Trust)
+\definecolor{mySubmissionColor}{RGB}{173,216,230} % LightBlue (Trust+Fear)
+\definecolor{myAweColor}{RGB}{221,160,221} % Plum (Fear+Surprise)
+\definecolor{myDisapprovalColor}{RGB}{250,128,114} % LightCoral (Surprise+Sadness)
+\definecolor{myRemorseColor}{RGB}{100,149,237} % CornflowerBlue (Sadness+Disgust)
+\definecolor{myContemptColor}{RGB}{189,183,107} % DarkKhaki (Disgust+Anger)
+\definecolor{myAggressivenessColor}{RGB}{255,99,71} % Tomato (Anger+Anticipation)
+
+% Tertiary Emotions (8)
+\definecolor{myDelightColor}{RGB}{255,223,0} % Brighter Gold (Joy + Love)
+\definecolor{myObedienceColor}{RGB}{176,224,230} % PowderBlue (Trust + Submission)
+\definecolor{myTerrorColor}{RGB}{230,190,255} % Lavender (Fear + Awe)
+\definecolor{myAlarmColor}{RGB}{255,182,193} % LightPink (Surprise + Disapproval)
+\definecolor{myDespairColor}{RGB}{119,136,153} % LightSlateGray (Sadness + Remorse)
+\definecolor{myShameColor}{RGB}{210,180,140} % Tan (Disgust + Contempt)
+\definecolor{myFuryColor}{RGB}{255,69,0}   % OrangeRed (Anger + Aggressiveness)
+\definecolor{myHopeColor}{RGB}{255,200,0} % Lighter/Brighter Gold (Anticipation + Optimism)
 
 % Page layout
 \geometry{
@@ -53,9 +86,9 @@ A fully encrypted, privacy-preserving voice verification network could effective
 Zero-knowledge proofs provide part of the solution, but a fundamental challenge remains: it is difficult to verify with absolute certainty that a given voice truly belongs to a specific individual, especially as voice synthesis technologies become increasingly sophisticated.
 This work introduces a solution to the verification problem by leveraging cryptoeconomics.
 The network rewards users for submitting accurate credentials, while imposing penalties on those who attempt to provide false information, leveraging the security of a Proof-of-Stake (PoS) consensus mechanism, while aligning user incentives with the integrity of the network.
-Voice biometrics and other sensitive data are cryptographically stored in Trusted Execution Environments (TEEs) providing hardware-backed isolation and encryption.
-Access to this data is granted to users through a Soulbound Token (SBT), a non-transferable, non-replicable digital asset permanently tied to an individual's digital identity.
-Over time, the user builds-up a personalised voice model, with each new audio sample organized and stored within a wavRAG structure—an Audio-Integrated Retrieval Augmented Generation framework, enabling efficient and context-rich retrieval of voice data.
+Cryptographic keys to voice biometrics and other sensitive data are stored in Trusted Execution Environments (TEEs) providing hardware-backed isolation.
+Access to these keys is granted to users through a Soulbound Token (SBT), a non-transferable, non-replicable digital asset permanently tied to an individual's digital identity \cite{buterin2022soulbound}.
+Over time, the user builds-up a personalised voice model, with each new audio sample organized and stored within a WavRAG structure---an Audio-Integrated Retrieval Augmented Generation framework, enabling efficient and context-rich retrieval of voice data \cite{chen2025wavrag}.
 \end{abstract}
 
 \section{Introduction}
@@ -128,8 +161,8 @@ Ethereum's ability to ensure security through staked ETH is attributable to the 
 A new network, even built with the same consensus mechanism, would not be able to guarantee security with the same level of confidence.
 Taking the PoS principle to Voice Verification, to validate and secure the authenticity of voice biometrics from day one requires a different approach.
 A solution is to introduce an AI biosignal verification analysis step, in which the user must provide a voice sample accompanied by the physiological motions necessary for human speech production.
-Projects such as OriginStory propose a microphone that includes a sensor to measure these movements, however a laryngeal mounted Piezoelectric transducer would be a viable alternative that can capture vocal fold vibrations (70-3000 Hz) through neck skin and would be broadly accessible and cost effective for a global network of users.
-The emphasis is on open-source hardware and a ResNet-18 signal processing architecture, which prepares the data with preliminary "authentic/synthetic" labels.
+Projects such as OriginStory propose a microphone that includes a sensor to measure these movements \cite{ftc2024originstory}, however a laryngeal mounted Piezoelectric transducer would be a viable alternative that can capture vocal fold vibrations (70-3000 Hz) through neck skin and would be broadly accessible and cost effective for a global network of users.
+The emphasis is on open-source hardware and a ResNet-18 signal processing architecture \cite{liu2025machine}, which prepares the data with preliminary "authentic/synthetic" labels.
 Such process is a pre-requisite for the user to be able to submit a voice sample to the network, and is a key component of the voice verification system.
 To enhance security and incentivise honest participation, the staking mechanism requires users to regularly re-verify and stake SANG tokens as collateral, in addition to successfully completing the preliminary AI biosignal verification analysis.
 \begin{equation}
@@ -186,7 +219,7 @@ Pairing PoS and physical biosignal analysis alone is not enough to protect the n
 
 Soul Bound Tokens (SBTs) are proposed as a potential decentralised identity system, that would be used to ensure individual credentials are not transferable or replicable, and may therefore prove critical in sybil resistance.
 However before community recovery mecanisms are broadly adopted by wallet issuers, SBTs are not a complete solution.
-In the interim the network may leverage a revocable proto-SBT such as ERC-5484, which maintains the non-transferable and non-replicable properties of an SBT, but allows the token to be burnt under certain conditions.
+In the interim the network may leverage a revocable proto-SBT such as ERC-5484, which maintains the non-transferable and non-replicable properties of an SBT, but allows the token to be burnt under certain conditions \cite{erc5484}.
 Sybil resistance must therefore be managed through a layered combination of social and technical mechanisms, including zero-knowledge identity proofs, integrating existing social media account validation, and the use of a reputation system, which can include on-chain activity, repeated engagement and other social signals.
 
 A voice verification network should also support a pseudonymous economy, whereby users can port their authenticated voice biometrics to a pseudonymous identity they control.
@@ -196,7 +229,7 @@ Such a \textquotesingle training wheels\textquotesingle{} phase---liberated from
 \section{Privacy}
 \label{sec:results}
 Current internet architecture limits privacy, often relying on centralised servers that process and store user data.
-Privacy for a Voice Verification Network can be maintained by encrypting all biometric and audio data prior to storage in a decentralised cloud network such as IPFS.
+Privacy for a Voice Verification Network can be maintained by encrypting all biometric and audio data prior to storage in a decentralised cloud network such as IPFS \cite{ipfs2023interplanetary}.
 
 \begin{figure}[H]
     \centering
@@ -236,7 +269,7 @@ Privacy for a Voice Verification Network can be maintained by encrypting all bio
 \end{figure}
 \vspace{0.1cm}
 
-A wallet signature derives a fernet symmetric encryption key from a Trusted Execution Enviornment (TEE) network such as Phala, making the data undecipherable without key access.
+A wallet signature derives a fernet symmetric encryption key \cite{fernet2010fernet} from a Trusted Execution Enviornment (TEE) network such as Phala \cite{phala2023tee}, making the data undecipherable without key access.
 
 \begin{figure}[H]
     \centering
@@ -308,9 +341,9 @@ Only this proto-SBT holding wallet can derive the decryption key from the TEE ne
 \section{Intellectual Property, Sovereignty and Custody}
 \label{sec:conclusion}
 The unique physiological properties of a voice cannot be understood as Intellectual Property (IP) in a traditional sense, and are not protected by existing IP laws.
-Though legislation such as the Ensuring Likeness Voice Image Security (ELVIS) Act has been signed into law in Tennessee, US, and bills are proposed in the US and other jurisictions, the ELVIS Act is merely an expansion of \textit{publicity} rights of the voice as "a sound attributable to a particular individual, regardless of whether it contains the actual voice or a simulation" and only applies to unathorised \textit{commercial} use.
+Though legislation such as the Ensuring Likeness Voice Image Security (ELVIS) Act \cite{elvis2024act} has been signed into law in Tennessee, US, and bills are proposed in the US and other jurisictions, the ELVIS Act is merely an expansion of \textit{publicity} rights of the voice as "a sound attributable to a particular individual, regardless of whether it contains the actual voice or a simulation" and only applies to unathorised \textit{commercial} use.
 This makes sense, as the voice is a natural biological property of an individual, it is not a product of human invention, however when commercialised a voice being purveyed in a new work can have attributes that allow it to fit into an IP regime, therefore elements of proposed legislation are concerned with making AI voice models licensable.
-The No Artificial Intelligence Fake Replicas And Unauthorized Duplications (No AI FRAUD) Act proposed in the US House of Representatives would "recognize that every individual has a property right in their own likeness and voice, akin to other forms of IP rights" and the Nuture Originals, Foster Art and Keep Entertainment Safe (NO FAKES) Act introduced in both the US Senate and House of Representatives would grant "each individual or right holder the right to authorize the use of their voice or visual likeness in a digital replica, which the bill states is a property right."
+The No Artificial Intelligence Fake Replicas And Unauthorized Duplications (No AI FRAUD) Act \cite{noaifraud2024act} proposed in the US House of Representatives would "recognize that every individual has a property right in their own likeness and voice, akin to other forms of IP rights" and the Nuture Originals, Foster Art and Keep Entertainment Safe (NO FAKES) Act \cite{nofakes2024act} introduced in both the US Senate and House of Representatives would grant "each individual or right holder the right to authorize the use of their voice or visual likeness in a digital replica, which the bill states is a property right."
 Though the scope of these proposals targets broad protection for individuals, as well as outlining the commercial terms for licensing, in practice enforcement is likely to be difficult for anyone other than the corporations that rely on IP as a product.
 
 A voice verification network should exist independently of any IP regime, and not be encumbered by politically or commercially vulnerable legislation.
@@ -377,7 +410,7 @@ Where $S_t$ is the remaining stake at time $t$, $w_i$ is the number of tokens sp
 Another early use-case sees users spinning-up thier own voice agent once they have recorded a sufficient amount of voice data, and deploying it inside an X (formerly Twitter) Space---interactive live audio conversations which have become popular forums for the cryptocurrency community.
 By participating in these X Spaces with AI voice agents trained on their voice data and personality, they can grow their X following, expanding their reach and earning potential.
 
-An AI voice agent marketplace can be introduced through the Songjam agentic CRM, an exisiting platform designed to support growth and anlytics for X users by automating processes such as direct messaging, tracking listener data and speech-to-text with an emphasis on X Spaces.
+An AI voice agent marketplace can be introduced through the Songjam agentic CRM, an exisiting platform designed to support growth and anlytics for X users by automating processes such as direct messaging, tracking listener data and Automatic Speech Recognition (ASR) with an emphasis on X Spaces.
 
 \begin{figure}[H]
     \centering
@@ -388,19 +421,87 @@ An AI voice agent marketplace can be introduced through the Songjam agentic CRM,
 
 Focusing on an X Spaces native sandbox can encourage users to spin up creative AI voice agents with customisable personalities, using their own voice or a combination of available voices to create unique voice agents with royalties being split between the original voice owner(s) and the agent owner.
 As mentioned in section 3, such a \textquotesingle training wheels\textquotesingle{} phase can support early network growth, helping to ensure the network is robust, while providing a platform for users to experiment within the voice agent ecosystem.
-There may be several iterations of the voice agent marketplace and underlying protocol that must be rolled out and stress tested at scale before a fully decentralised cryptographically secure voice verification network can reach maturity.
+There may be several iterations of the voice agent marketplace and its underlying protocol that must be rolled out and stress-tested at scale before a fully decentralised, cryptographically secure voice verification network can reach maturity.
 
 \section{Data}
-\label{sec:discussion}
+\label{sec:data}
 Retrieval Augmented Generation (RAG) is a data standard which supports context-rich retrieval for AI models such as Large Language Models (LLMs).
 It has become a key component of the AI ecosystem, giving LLMs the ability to access and utilise external data sources to enhance their responses.
-wavRAG is a framework that integrates audio data into RAG pipelines, enabling LLMs to process and analyse voice audio data to provide context-rich responses.
+WavRAG \cite{chen2025wavrag} is a framework that integrates audio data into RAG pipelines without requiring an intermediate ASR step, therefore reducing computational overhead, preserving acoustic information and leveraging a unified multimodal knowledge base ideal for voice data.
+Despite these advantages, WavRAG is not yet widely adopted, and the extent to which RAG can contribute to the acoustic aspects such as intonation, expressiveness and other voice characteristics essential to AI voice agents has yet to be extensively investigated.
+
+Furthermore, there are limited high-quality emotion datasets available for the training of voice models, and many researchers are resorting to synthetic data generation due to the cost of collecting and annotating real data.
+Model collapse is predicted when a model is trained on recursive synthetic data, in other words when a model is trained on data itself generated by a model.
+Though there is limited research into voice model degeneration due to these causes, why risk it when X Spaces presents a goldmine of real-world voice data for training and testing?
+
+Incentivising users to annotate and own their voice data can help to address these issues, and can be supported by the network through a voice data marketplace.
+Users may not charge the same price for their voice data as they would for their time, particularly when captured in a public forum they participate in for their own professional or personal benefit.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wheel.png}
+    \caption{Plutchik's Wheel of Emotions}
+    \label{fig:emotion-wheel-png}
+\end{figure}
+
+A speech database can draw from psychologist Robert Plutchik's Wheel of Emotions \cite{plutchik1980general}, which is a model of human emotions based on the theory of psychotherapy.
+The wheel is divided into 8 primary emotions, and subsequent sets of secondary and tertirary emotions which represent different levels of intensity, as well as compound emotions.
+X Space data is recorded and catagorised by the speaker, or other participants in the space including listeners. Metadata is enriched with further context and this forms the foundation of a structured speech dataset.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2cm,
+        block/.style={rectangle, draw, fill=blue!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        process/.style={rectangle, draw, fill=green!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        output/.style={rectangle, draw, fill=orange!20, minimum width=3.5cm, minimum height=1.2cm, text width=3.3cm, align=center},
+        arrow/.style={thick,->,>=stealth}
+    ]
+        % Voice data input
+        \node[block] (voice) at (0,0) {Voice Data\\Sample};
+        
+        % Emotion annotation
+        \node[process] (annotate) at (4,0) {Emotion\\Annotation};
+        
+        % Metadata enrichment
+        \node[process] (metadata) at (8,0) {Metadata\\Enrichment};
+        
+        % Final output
+        \node[output] (output) at (12,0) {Annotated\\Dataset};
+        
+        % Connections
+        \draw[arrow] (voice) -- (annotate);
+        \draw[arrow] (annotate) -- (metadata);
+        \draw[arrow] (metadata) -- (output);
+        
+        % Labels with three lines
+        \node[below=0.1cm of voice, text width=3.3cm, align=center] {Raw audio\\input\\format};
+        \node[below=0.1cm of annotate, text width=3.3cm, align=center] {Primary\\Secondary\\Tertiary emotions};
+        \node[below=0.1cm of metadata, text width=3.3cm, align=center] {Intensity\\Context\\Speaker info};
+        \node[below=0.1cm of output, text width=3.3cm, align=center] {Structured\\training\\dataset};
+        
+        % Emotion wheel reference
+        \node[above=0.5cm of annotate] {Plutchik's Wheel};
+        \draw[dashed] (annotate.north) -- ++(0,0.5);
+    \end{tikzpicture}
+    \caption{Process of annotating voice data using Plutchik's Wheel of Emotions}
+    \label{fig:emotion-annotation}
+\end{figure}
+
+Making such data available can be defined by the proto-SBT holder \cite{erc5484}, they may wish to keep the data private, give it away for free, monetise it by selling it to be used for training an AI model, or use it for their own voice agent exclusively.
+Programmable terms can be used to define the conditions under which the data can be used, and the royalties that are due to the voice owner(s).
+Compiling such a structured dataset in a WavRAG pipeline \cite{wavrag2024} and enabling the network to define its own terms would be a step towards a sovereign open-source AI voice ecosystem.
 
 \section{Conclusion}
 \label{sec:conclusion}
-Conclude your paper here.
+This work proposed a cryptographically secure voice verification network, and a framework for the development of an open-source AI voice ecosystem, including a voice agent and voice data marketplace.
+Powered by cryptoeconomics and open-source hardware \cite{originstory2024}, with market demand the network can be bootstrapped rapidly, and scaled to support the needs of the global population.
+Leveraging a Proof-of-Stake consensus mechanism, the network is secured through its participants.
+The network aims for a future where voice data is owned by the individual, and can be used as they see fit.
+Nevertheless, the network may be used in a custodial manner, and data custodians may administer voice data for the benefit of indiviudal voice owners.
+This architecture establishes a durable paradigm for voice data security, ensuring persistent user control and safeguarding individual voice assets against emerging threats in an adversarial digital landscape.
 
-\bibliographystyle{plain}
+\bibliographystyle{unsrt} % Changed for debugging
 \bibliography{references}
 
 \end{document} 
