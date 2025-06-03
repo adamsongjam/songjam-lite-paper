@@ -96,19 +96,19 @@ This work introduces a solution to the verification problem by leveraging crypto
 The network rewards users for submitting accurate credentials, while imposing penalties on those who attempt to provide false information, leveraging the security of a Proof-of-Stake (PoS) consensus mechanism, while aligning user incentives with the integrity of the network.
 Cryptographic keys to voice biometrics and other sensitive data are stored in Trusted Execution Environments (TEEs) providing hardware-backed isolation.
 Access to these keys is granted to users through a Soulbound Token (SBT), a non-transferable, non-replicable digital asset permanently tied to an individual's digital identity \cite{buterin2022soulbound}.
-Over time, the user builds-up a personalised voice model, with each new audio sample organized and stored within a WavRAG structure---an Audio-Integrated Retrieval Augmented Generation framework, enabling efficient and context-rich retrieval of voice data \cite{chen2025wavrag}.
+Over time, the user builds-up a personalised voice model, with each new audio sample organised and stored within a WavRAG structure---an Audio-Integrated Retrieval Augmented Generation framework, enabling efficient and context-rich retrieval of voice data \cite{chen2025wavrag}.
 \end{abstract}
 
 \section{Introduction}
 \label{sec:introduction}
-The rise of deepfakes has led to a growing concern about the falibility of humans to verify the authenticity of voice communication.
+The rise of deepfakes has led to a growing concern about the fallibility of humans to verify the authenticity of voice communication.
 High profile cases such as the 2024 deepfake attack on engineering firm Arup, which led to a twenty-five million dollar loss, highlight the importance of secure and reliable enterprise verification systems.
 
-While a plethora of fradulent online videos featuring deepfakes of celebrities promoting supposed investment opportunities, and the rise of romance or \textquotesingle pig butchering\textquotesingle{} scams which collectively siphon billions of dollars from unsuspecting victims every year illustrate the nessecity of consumer or citizen protections.
+While a plethora of fraudulent online videos featuring deepfakes of celebrities promoting supposed investment opportunities, and the rise of romance or \textquotesingle pig butchering\textquotesingle{} scams which collectively siphon billions of dollars from unsuspecting victims every year illustrate the necessity of consumer or citizen protections.
 The sub-150ms latency required for natural conversation in VoIP calls leaves minimal time for analysis on standard hardware, making real-time detection of deepfakes challenging. While the proprietary nature of platforms such as Zoom, Teams and SIP providers, hinders the development of universal detection frameworks.
 
 What is needed is a privacy-preserving verification system leveraging zero-knowledge proofs and selective disclosure mechanisms, where only cryptographically attested credentials (e.g., identity, access rights) are validated—without exposing extraneous user data.
-This approach ensures networks authenticate voice participants a priori through mathematical guarantees (e.g., zk-SNARKs), verifying the existence of valid credentials rather than analyzing raw biometrics or personal details.
+This approach ensures networks authenticate voice participants a priori through mathematical guarantees (e.g., zk-SNARKs), verifying the existence of valid credentials rather than analysing raw biometrics or personal details.
 By limiting verification to key attributes (e.g., "member of authorised group" or "registered device") and eliminating unnecessary data collection, such systems support user control over personal information while thwarting deepfake fraud and metadata misuse.
 This paper proposes a novel cryptoeconomic framework for voice verification, in which users are incentivised to provide accurate and verifiable credentials, while malicious actors face penalties—akin to PoS slashing mechanisms—for fraudulent voice attribution attempts.
 
@@ -179,7 +179,7 @@ To enhance security and incentivise honest participation, the staking mechanism 
     0 & \text{otherwise}
     \end{cases}
     \end{equation}
-    The security contribution ($\mathcal{S}_i$) combines an AI verification confidence score ($V_i$, on a 0--1 scale), user-staked tokens ($S_i$), a stake elasticity parameter ($\gamma > 1$ for superlinear scaling), a time decay constant ($\lambda$), and the time since last verification refresh ($t$), creating a time-adjusted stake mechanism that prioritizes recent biometric confirmations.
+    The security contribution ($\mathcal{S}_i$) combines an AI verification confidence score ($V_i$, on a 0--1 scale), user-staked tokens ($S_i$), a stake elasticity parameter ($\gamma > 1$ for superlinear scaling), a time decay constant ($\lambda$), and the time since last verification refresh ($t$), creating a time-adjusted stake mechanism that prioritises recent biometric confirmations.
 \section{Sybil Resistance}
 \label{sec:methodology}
 Pairing PoS and physical biosignal analysis alone is not enough to protect the network against sybil attacks, in which a single attacker creates and operates multiple fake identities.
@@ -226,7 +226,7 @@ Pairing PoS and physical biosignal analysis alone is not enough to protect the n
 \vspace{0.1cm}
 
 Soul Bound Tokens (SBTs) are proposed as a potential decentralised identity system, that would be used to ensure individual credentials are not transferable or replicable, and may therefore prove critical in sybil resistance.
-However before community recovery mecanisms are broadly adopted by wallet issuers, SBTs are not a complete solution.
+However before community recovery mechanisms are broadly adopted by wallet issuers, SBTs are not a complete solution.
 In the interim the network may leverage a revocable proto-SBT such as ERC-5484, which maintains the non-transferable and non-replicable properties of an SBT, but allows the token to be burnt under certain conditions \cite{erc5484}.
 Sybil resistance must therefore be managed through a layered combination of social and technical mechanisms, including zero-knowledge identity proofs, integrating existing social media account validation, and the use of a reputation system, which can include on-chain activity, repeated engagement and other social signals.
 
@@ -277,7 +277,7 @@ Privacy for a Voice Verification Network can be maintained by encrypting all bio
 \end{figure}
 \vspace{0.1cm}
 
-A wallet signature derives a fernet symmetric encryption key \cite{fernet2010fernet} from a Trusted Execution Enviornment (TEE) network such as Phala \cite{phala2023tee}, making the data undecipherable without key access.
+A wallet signature derives a fernet symmetric encryption key \cite{fernet2010fernet} from a Trusted Execution Environment (TEE) network such as Phala \cite{phala2023tee}, making the data undecipherable without key access.
 
 \begin{figure}[H]
     \centering
@@ -349,9 +349,9 @@ Only this proto-SBT holding wallet can derive the decryption key from the TEE ne
 \section{Intellectual Property, Sovereignty and Custody}
 \label{sec:conclusion}
 The unique physiological properties of a voice cannot be understood as Intellectual Property (IP) in a traditional sense, and are not protected by existing IP laws.
-Though legislation such as the Ensuring Likeness Voice Image Security (ELVIS) Act \cite{elvis2024act} has been signed into law in Tennessee, US, and bills are proposed in the US and other jurisictions, the ELVIS Act is merely an expansion of \textit{publicity} rights of the voice as "a sound attributable to a particular individual, regardless of whether it contains the actual voice or a simulation" and only applies to unathorised \textit{commercial} use.
+Though legislation such as the Ensuring Likeness Voice Image Security (ELVIS) Act \cite{elvis2024act} has been signed into law in Tennessee, US, and bills are proposed in the US and other jurisdictions, the ELVIS Act is merely an expansion of \textit{publicity} rights of the voice as "a sound attributable to a particular individual, regardless of whether it contains the actual voice or a simulation" and only applies to unauthorised \textit{commercial} use.
 This makes sense, as the voice is a natural biological property of an individual, it is not a product of human invention, however when commercialised a voice being purveyed in a new work can have attributes that allow it to fit into an IP regime, therefore elements of proposed legislation are concerned with making AI voice models licensable.
-The No Artificial Intelligence Fake Replicas And Unauthorized Duplications (No AI FRAUD) Act \cite{noaifraud2024act} proposed in the US House of Representatives would "recognize that every individual has a property right in their own likeness and voice, akin to other forms of IP rights" and the Nuture Originals, Foster Art and Keep Entertainment Safe (NO FAKES) Act \cite{nofakes2024act} introduced in both the US Senate and House of Representatives would grant "each individual or right holder the right to authorize the use of their voice or visual likeness in a digital replica, which the bill states is a property right."
+The No Artificial Intelligence Fake Replicas And Unauthorized Duplications (No AI FRAUD) Act \cite{noaifraud2024act} proposed in the US House of Representatives would "recognize that every individual has a property right in their own likeness and voice, akin to other forms of IP rights" and the Nurture Originals, Foster Art and Keep Entertainment Safe (NO FAKES) Act \cite{nofakes2024act} introduced in both the US Senate and House of Representatives would grant "each individual or right holder the right to authorize the use of their voice or visual likeness in a digital replica, which the bill states is a property right."
 Though the scope of these proposals targets broad protection for individuals, as well as outlining the commercial terms for licensing, in practice enforcement is likely to be difficult for anyone other than the corporations that rely on IP as a product.
 
 A voice verification network should exist independently of any IP regime, and not be encumbered by politically or commercially vulnerable legislation.
@@ -395,7 +395,7 @@ Custodial solutions are often used in the cryptocurrency space, while self-custo
 \section{AI Voice Agents}
 \label{sec:discussion}
 
-Network participants are able to provide thier voice to an AI voice agent, which can be used to provide a voice-based service.
+Network participants are able to provide their voice to an AI voice agent, which can be used to provide a voice-based service.
 The voice model can be provided \textquotesingle as-is\textquotesingle{} or in combination with other voices and sources to create unique voices.
 For example, a voice agent could be deployed in a reader app, a chatbot, or a voice assistant, and paid for with royalties issued in a native token representing the individual voice.
 Such an AI voice agent marketplace would provide an incentive for users to provide their voice data to the network, and to maintain it over time.
@@ -415,10 +415,10 @@ Users stake corresponding tokens to enable use of an agent, which are burnt base
 
 Where $S_t$ is the remaining stake at time $t$, $w_i$ is the number of tokens spoken by the AI model for utterance $i$, and $W$ is the total number of tokens in the model's vocabulary. This ensures that one staked token is burned for each token spoken by the AI voice agent, with partial tokens being accumulated until they sum to a whole token.
 
-Another early use-case sees users spinning-up thier own voice agent once they have recorded a sufficient amount of voice data, and deploying it inside an X (formerly Twitter) Space---interactive live audio conversations which have become popular forums for the cryptocurrency community.
+Another early use-case sees users spinning-up their own voice agent once they have recorded a sufficient amount of voice data, and deploying it inside an X (formerly Twitter) Space---interactive live audio conversations which have become popular forums for the cryptocurrency community.
 By participating in these X Spaces with AI voice agents trained on their voice data and personality, they can grow their X following, expanding their reach and earning potential.
 
-An AI voice agent marketplace can be introduced through the Songjam agentic CRM, an exisiting platform designed to support growth and anlytics for X users by automating processes such as direct messaging, tracking listener data and Automatic Speech Recognition (ASR) with an emphasis on X Spaces.
+An AI voice agent marketplace can be introduced through the Songjam agentic CRM, an existing platform designed to support growth and analytics for X users by automating processes such as direct messaging, tracking listener data and Automatic Speech Recognition (ASR) with an emphasis on X Spaces.
 
 \begin{figure}[H]
     \centering
@@ -453,8 +453,8 @@ Users may not charge the same price for their voice data as they would for their
 \end{figure}
 
 A speech database can draw from psychologist Robert Plutchik's Wheel of Emotions \cite{plutchik1980general}, which is a model of human emotions based on the theory of psychotherapy.
-The wheel is divided into 8 primary emotions, and subsequent sets of secondary and tertirary emotions which represent different levels of intensity, as well as compound emotions.
-X Space data is recorded and catagorised by the speaker, or other participants in the space including listeners. Metadata is enriched with further context and this forms the foundation of a structured speech dataset.
+The wheel is divided into 8 primary emotions, and subsequent sets of secondary and tertiary emotions which represent different levels of intensity, as well as compound emotions.
+X Space data is recorded and categorised by the speaker, or other participants in the space including listeners. Metadata is enriched with further context and this forms the foundation of a structured speech dataset.
 
 \begin{figure}[H]
     \centering
@@ -506,7 +506,7 @@ This work proposed a cryptographically secure voice verification network, and a 
 Powered by cryptoeconomics and open-source hardware \cite{originstory2024}, with market demand the network can be bootstrapped rapidly, and scaled to support the needs of the global population.
 Leveraging a Proof-of-Stake consensus mechanism, the network is secured through its participants.
 The network aims for a future where voice data is owned by the individual, and can be used as they see fit.
-Nevertheless, the network may be used in a custodial manner, and data custodians may administer voice data for the benefit of indiviudal voice owners.
+Nevertheless, the network may be used in a custodial manner, and data custodians may administer voice data for the benefit of individual voice owners.
 This architecture establishes a durable paradigm for voice data security, ensuring persistent user control and safeguarding individual voice assets against emerging threats in an adversarial digital landscape.
 
 \bibliographystyle{unsrt} % Changed for debugging
