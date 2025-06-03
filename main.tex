@@ -18,6 +18,7 @@
 \usepackage{titling}
 \usepackage{xcolor}
 \usepackage{tikz}
+\usepackage{fancyhdr}
 \usetikzlibrary{shapes,arrows,positioning,decorations.pathreplacing}
 \usepackage{caption}
 \captionsetup{skip=0pt}  % Remove space between figure and caption
@@ -80,6 +81,13 @@
 \begin{document}
 
 \maketitle
+\thispagestyle{fancy} % Apply fancy style to the title page
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyfoot[L]{\thepage} % Page number on the left
+\fancyfoot[R]{\small v 0.1} % Version number on the right
+\renewcommand{\headrulewidth}{0pt} % No header rule
+\renewcommand{\footrulewidth}{0.4pt} % Footer rule
 
 \begin{abstract}
 A fully encrypted, privacy-preserving voice verification network could effectively eliminate voice-based deepfake fraud without requiring users to compromise their security or personal data.
